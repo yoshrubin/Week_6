@@ -1,56 +1,34 @@
-//------------------------------------------------
-//  class List
-//      arbitrary size Lists
-//      permits insertion and removal
-//      only from the front of the List
-// List example from course booklet - page 16-17
-//------------------------------------------------
-class List
+#include <iostream>
+
+using namespace std;
+
+class RoundList
 {
-	protected:
-		//--------------------------------------------
-		//  inner class link
-		//  a single element for the linked List
-		//--------------------------------------------
-		class Link
-		{
-		public:
-			Link( int linkValue, Link * nextPtr); // constructor
-			Link (const Link &);                  // Copy constructor
-
-			// data areas
-			int value;
-			Link * next;
-		};	//end of class Link
-
-	public: // List
-		// constructors
-		List();              // constructor
-		List(const List&);	 // Copy constructor
-		~List();
-
-		// operations
-		void add( int value);
-		int firstElement() const;
-		bool search(const int &value) const;
-		bool isEmpty() const;
-		void removeFirst();
-		void clear();
-
-	protected:
-		// data field
-		Link* head;
-};
-
-//=========================================================
-// End of list.h
-//=========================================================
-
-
-//RoundList
-
-class RoundList: public List {
+protected:
+	//--------------------------------------------
+	//  inner class link
+	//  a single element for the linked List
+	//--------------------------------------------
+	class Link
+	{
+	public:
+		// constructor
+		Link(int linkValue, Link * nextPtr);
+		Link(const Link &);
+		// data areas
+		int value;
+		Link * next;
+	}*head;	//end of class Link
 public:
-	void addToEnd(int val);
-	bool search(int n);
+	// CTOR
+	RoundList();
+	// DTOR
+	~RoundList();
+	// funcs
+	void add(int);
+	void addToEnd(int);
+	void removeFirst();
+	int search(int);
+	void clear();
+	bool isEmpty() const;
 };

@@ -1,159 +1,89 @@
-// List example from course booklet - page 16-17
-#include "list.h"
-#include <cstring> // Needed for NULL
-using namespace std;
-
-//------------------------------------------------
-//  class Link implementation
-//------------------------------------------------
-// Constructor
-//------------------------------------------------
-List::Link::Link( int val, Link* nxt) : value(val), next(nxt)
-{}
-
-//------------------------------------------------
-// Copy Constructor
-//------------------------------------------------
-List::Link::Link(const Link& source) : value(source.value), next(source.next)
-{}
+RoundList::Link::Link(int val, Link* nxt) : value(val), next(nxt) {}
+RoundList::Link::Link(const Link& source) : value(source.value), next(source.next) {}
 
 //--------------------------------------------
 //  class List implementation
 //--------------------------------------------
-// Default constructor
-//--------------------------------------------
-List::List() : head(NULL)
-{
-	// no further initialization
-}
+RoundList::RoundList() : head(NULL) {}
 
-//------------------------------------------------
-// Copy constructor
-//------------------------------------------------
-List::List(const List &l)
-{
-	Link *src, *target;
-	if (l.head == NULL)
-		head = NULL;
-	else {
-		head= new Link((l.head)->value, NULL);
-		src = l.head;
-		target = head;
-		while (src->next != NULL)	{
-			target->next= new Link((src->next)->value, NULL);
-			src = src->next;
-			target = target->next;
-		}
-	}
-} // Copy constructor
-
-//------------------------------------------------
-List::~List()
+RoundList::~RoundList()
 {
 	clear();
-} // Destructor
+}
 
-//------------------------------------------------
-void List::clear()
+void RoundList::clear()
 {
-	// empty all elements from the List
-	Link* next;
-	for (Link *p = head; p != NULL; p=next) {
-		// delete the element pointed to by p
-		next    = p->next;
-		p->next = NULL;
-		delete p;
-	}
-
-	// mark that the List contains no elements
-	head = NULL;
-} // clear
-
-//------------------------------------------------
-bool List::isEmpty() const
+	while (head)
+		removeFirst();
+}
+bool RoundList::isEmpty() const
 {
 	// test to see if the List is empty
 	// List is empty if the pointer to the head
-	// Link is null
-	return head == NULL;
-} // isEmpty
+	// Link is 0
 
-//------------------------------------------------
-void List::add( int val)
+	return head == 0;
+}
+
+void RoundList::add(int val)
 {
+	if (!head) // head==NULL
+	{
+		head = new Link(val, 0);
+		head->next = head;
+		return;
+	}
+	Link* p = head;
+	while (p->next != head)
+		p = p->next;
 	//Add a new value to the front of a Linked List
 	head = new Link(val, head);
-	if (NULL == head)
-		throw "failed in memory allocation";
-} // add
+	p->next = head;
+}
 
-//------------------------------------------------
-int List::firstElement() const
+void RoundList::addToEnd(int val)
 {
-	// return first value in List
-	if (isEmpty())
-		throw "the List is empty, no first Element";
-	return head->value;
-} // firstElement
+	if (!head) // head==NULL
+	{
+		head = new Link(val, 0);
+		head->next = head;
+		return;
+	}
+	Link* p = head;
+	while (p->next != head)
+		p = p->next;
+	p->next = new Link(val, head);
+}
 
-//------------------------------------------------
-bool  List::search(const  int &val) const
+int RoundList::search(int n)
 {
+	if (n < 0) throw "ERROR! n < 0";
+	Link* p = head;
 	// loop to test each element
-	for (Link* p=head; p!=NULL ; p=p->next)
-		if (val == p->value)
-			return true;
-	// not found
-	return false;
-} // search
+	for (int i = 0; i < n; i++)
+		p = p->next;
+	return p->value;
+}
 
-//------------------------------------------------
-void List::removeFirst()
+void RoundList::removeFirst()
 {
 	// make sure there is a first element
 	if (isEmpty())
 		throw "the List is empty, no Elements to remove";
-
-	// save pointer to the removed node
-	Link* p = head;
-	// reassign the first node
-	head =  p->next;
-	p->next = NULL;
-	// recover memory used by the first element
-	delete p;
-} // removeFirst
-
-//RoundList
-
-//add to end
-void RoundList::addToEnd(int val){
-	if(isEmpty())
-		add(val);
-	else{
-		Link* next;
-        Link *p = head;
-        while(p != NULL) {
-            // move to last element
-            next = p->next;
-            p=next;
-			}
-        p->next->value = val;
-        next = p->next;
-        p=next;
-        p->next = head;
+	if (head->next == head)
+	{
+		delete head;
+		head = NULL;
+		return;
 	}
-}
-
-bool RoundList::search(int n){
-	Link* next;
-    Link *p = head;
-		while(p->value != n || p != NULL) {
-			// move to last element
-			next = p->next;
-			p=next;
-		}
-		if (p->value == n)
-			return true;
-		else
-			return false;
+	// save pointer to the removed node
+	Link* first = head;
+	Link* p = first->next;
+	// update first and last
+	while (p->next != first)
+		p = p->next;
+	head = first->next;
+	p->next = head;
+	// recover memory used by the first element
+	delete first;
 }
