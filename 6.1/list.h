@@ -45,3 +45,12 @@ class List
 //=========================================================
 // End of list.h
 //=========================================================
+
+
+//RoundList
+
+class RoundList: public List {
+public:
+	addToEnd(int val);
+	search(int n);
+}
