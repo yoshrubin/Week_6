@@ -124,3 +124,36 @@ void List::removeFirst()
 } // removeFirst
 
 //RoundList
+
+//add to end
+void RoundList::addToEnd(int val){
+	if(isEmpty())
+		add(val);
+	else{
+		Link* next;
+        Link *p = head;
+        while(p != NULL) {
+            // move to last element
+            next = p->next;
+            p=next;
+			}
+        p->next->value = val;
+        next = p->next;
+        p=next;
+        p->next = head;
+	}
+}
+
+bool RoundList::search(int n){
+	Link* next;
+    Link *p = head;
+		while(p->value != n || p != NULL) {
+			// move to last element
+			next = p->next;
+			p=next;
+		}
+		if (p->value == n)
+			return true;
+		else
+			return false;
+}

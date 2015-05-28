@@ -51,6 +51,6 @@ class List
 
 class RoundList: public List {
 public:
-	addToEnd(int val);
-	search(int n);
-}
+	void addToEnd(int val);
+	bool search(int n);
+};
