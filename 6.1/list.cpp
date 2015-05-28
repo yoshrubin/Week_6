@@ -1,3 +1,5 @@
+#include "list.h"
+
 RoundList::Link::Link(int val, Link* nxt) : value(val), next(nxt) {}
 RoundList::Link::Link(const Link& source) : value(source.value), next(source.next) {}
 

@@ -1,3 +1,5 @@
+#include "list.h"
+
 enum CHOICES
 {
 	EXIT, ADD, ADD_TO_END, REMOVE_FIRST, SEARCH, CLEAR, EMPTY
