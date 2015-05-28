@@ -1,7 +1,7 @@
 //------------------------------------------------
 //  class List
 //      arbitrary size Lists
-//      permits insertion and removal 
+//      permits insertion and removal
 //      only from the front of the List
 // List example from course booklet - page 16-17
 //------------------------------------------------
@@ -10,7 +10,7 @@ class List
 	protected:
 		//--------------------------------------------
 		//  inner class link
-		//  a single element for the linked List 
+		//  a single element for the linked List
 		//--------------------------------------------
 		class Link
 		{

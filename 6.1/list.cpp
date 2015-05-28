@@ -77,13 +77,13 @@ bool List::isEmpty() const
 	// Link is null
 	return head == NULL;
 } // isEmpty
- 
+
 //------------------------------------------------
 void List::add( int val)
 {
 	//Add a new value to the front of a Linked List
 	head = new Link(val, head);
-	if (NULL == head) 
+	if (NULL == head)
 		throw "failed in memory allocation";
 } // add
 
